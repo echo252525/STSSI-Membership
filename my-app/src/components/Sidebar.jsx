@@ -1,10 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import supabase from '../supabaseClient'; // Ensure Supabase client is initialized
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Ensure Bootstrap icons are imported
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  // Handle Logout
+  const handleLogout = async () => {
+    await supabase.auth.signOut(); // Log the user out
+    window.history.replaceState(null, '', '/auth/login'); // Prevent going back to the Dashboard
+    navigate('/auth/login'); // Redirect to login page
+  };
+
   return (
-    <div className="sidebar bg-light p-3">
+    <div className="sidebar bg-light p-3" style={{ width: '250px', height: '100vh' }}>
       <h3 className="text-center mb-4">Dashboard</h3>
       <ul className="nav flex-column">
         <li className="nav-item">
@@ -23,8 +33,10 @@ const Sidebar = () => {
           </Link>
         </li>
       </ul>
+
+      {/* Logout Button */}
       <div className="mt-auto">
-        <button className="btn btn-danger w-100 mt-4">
+        <button onClick={handleLogout} className="btn btn-danger w-100 mt-4">
           <i className="bi bi-box-arrow-right"></i> Logout
         </button>
       </div>
