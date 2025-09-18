@@ -35,31 +35,34 @@ const Dashboard = () => {
   }, [navigate]);
 
   return (
-    <div className="dashboard-container">
-      {/* Sidebar will be fixed on the left */}
-      <Sidebar />
+    <div className="container-fluid">
+      <div className="row">
+        {/* Sidebar */}
+        <div className="col-3 col-md-2 bg-light position-fixed h-100 p-3" style={{ top: 0, left: 0, zIndex: 1000 }}>
+          <Sidebar />
+        </div>
 
-      {/* Main content area */}
-      <div className="dashboard-content">
-        <h1>Welcome to Your Dashboard</h1>
-        <p>This is your exclusive membership area!</p>
+        {/* Main Content */}
+        <div className="col-9 col-md-10 offset-md-2 ml-sm-auto p-3" style={{ marginLeft: '250px' }}>
+          <h1>Welcome to Your Dashboard</h1>
+          <p>This is your exclusive membership area!</p>
 
-        {/* User Info Section */}
-        {user ? (
-          <div className="user-info">
-            <h3>User Details</h3>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            {/* Render membership_type if it exists */}
-            <p>
-              <strong>Membership Type:</strong> {membershipType || 'Not Set'}
-            </p>
-            {/* Add more user-specific content here */}
-          </div>
-        ) : (
-          <p>Loading user information...</p>
-        )}
+          {/* User Info Section */}
+          {user ? (
+            <div className="user-info mt-4">
+              <h3>User Details</h3>
+              <p>
+                <strong>Email:</strong> {user.email}
+              </p>
+              {/* Render membership_type if it exists */}
+              <p>
+                <strong>Membership Type:</strong> {membershipType || 'Not Set'}
+              </p>
+            </div>
+          ) : (
+            <p>Loading user information...</p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,36 +1,31 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import  supabase from '../supabaseClient';  // Make sure you have Supabase client initialized
+import { Link } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Ensure Bootstrap icons are imported
 
 const Sidebar = () => {
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate('/auth/login');  // Redirect to login page after logout
-  };
-
   return (
-    <div className="sidebar">
-      <div className="sidebar-header">
-        <h3>Welcome</h3>
-      </div>
-      <nav className="sidebar-nav">
-        <ul>
-          <li>
-            <a href="/pages/users/dashboard">Dashboard</a>
-          </li>
-          <li>
-            <a href="/pages/users/profile">Profile</a>
-          </li>
-          <li>
-            <a href="/pages/users/settings">Settings</a>
-          </li>
-        </ul>
-      </nav>
-      <div className="logout-section">
-        <button onClick={handleLogout} className="btn-logout">
-          Logout
+    <div className="sidebar bg-light p-3">
+      <h3 className="text-center mb-4">Dashboard</h3>
+      <ul className="nav flex-column">
+        <li className="nav-item">
+          <Link to="/pages/users/dashboard" className="nav-link">
+            <i className="bi bi-house-door-fill"></i> Dashboard
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/pages/users/profile" className="nav-link">
+            <i className="bi bi-person-circle"></i> Profile
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/pages/users/settings" className="nav-link">
+            <i className="bi bi-gear-fill"></i> Settings
+          </Link>
+        </li>
+      </ul>
+      <div className="mt-auto">
+        <button className="btn btn-danger w-100 mt-4">
+          <i className="bi bi-box-arrow-right"></i> Logout
         </button>
       </div>
     </div>

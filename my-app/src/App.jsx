@@ -28,10 +28,9 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} /> {/* Default route */}
+        <Route path="/" element={<LandingPage />} /> {/* Default route to LandingPage */}
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/signup" element={<Signup />} />
-        <Route path="/auth/landing" element={<LandingPage />} /> {/* LandingPage route */}
         <Route 
           path="/pages/users/dashboard" 
           element={
