@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import supabase from '../supabaseClient'; // Ensure the path is correct
+import supabase from '../supabaseClient'; // Make sure the path is correct
 
-const Signup = () => {
+const Login = () => {
+  // State to manage email, password, error, and loading state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
 
-  const handleSignup = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
 
     try {
-      const { user, error } = await supabase.auth.signUp(
-        { email, password },
-        {
-          redirectTo: window.location.href, // Optional, can change to your desired redirect URL
-        }
-      );
+      const { user, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
       if (error) {
         setError(error.message);
@@ -41,14 +40,14 @@ const Signup = () => {
         <div className="col-md-6">
           <div className="card">
             <div className="card-body">
-              <h2 className="text-center mb-4">Sign Up</h2>
+              <h2 className="text-center mb-4">Login</h2>
 
               {success ? (
                 <div className="alert alert-success text-center">
-                  <p>Check your email to confirm your account.</p>
+                  <p>Login successful! Redirecting...</p>
                 </div>
               ) : (
-                <form onSubmit={handleSignup}>
+                <form onSubmit={handleLogin}>
                   {error && (
                     <div className="alert alert-danger text-center">
                       <p>{error}</p>
@@ -56,7 +55,9 @@ const Signup = () => {
                   )}
 
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
+                    <label htmlFor="email" className="form-label">
+                      Email
+                    </label>
                     <input
                       type="email"
                       id="email"
@@ -68,7 +69,9 @@ const Signup = () => {
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">
+                      Password
+                    </label>
                     <input
                       type="password"
                       id="password"
@@ -84,13 +87,16 @@ const Signup = () => {
                     className="btn btn-primary w-100"
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Signing up...' : 'Sign Up'}
+                    {isLoading ? 'Logging in...' : 'Log In'}
                   </button>
                 </form>
               )}
 
               <p className="mt-4 text-center">
-                Already have an account? <a href="/login" className="text-decoration-none">Log in here</a>
+                Don't have an account?{' '}
+                <a href="/signup" className="text-decoration-none">
+                  Sign up here
+                </a>
               </p>
             </div>
           </div>
@@ -100,4 +106,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
